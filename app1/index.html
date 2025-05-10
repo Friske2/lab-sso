@@ -1,0 +1,35 @@
+<!-- app1/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>App1</title>
+</head>
+<body>
+  <h1>App1 Home</h1>
+  <p id="tokenDisplay">Loading token...</p>
+  <button onclick="logout()">logout</button>
+  <script>
+    // ดึง token จาก query string
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    
+    if (token) {
+      sessionStorage.setItem("token", token);
+      document.getElementById("tokenDisplay").textContent = "Token: " + token;
+      // redirect ไปที่ /home
+        // window.location.href = "/home";
+    } else {
+      document.getElementById("tokenDisplay").textContent = "No token found.";
+    }
+
+    function logout() {
+        alert("Logout successful!");
+      // ลบ token ออกจาก sessionStorage
+      sessionStorage.removeItem("token");
+      // redirect ไปที่ /login
+      window.location.href = "http://192.168.1.114:9000/logout"
+    }
+  </script>
+</body>
+</html>
