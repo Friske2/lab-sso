@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   if (!token) {
     // redirect ไป login
     return res.redirect(
-      "http://192.168.1.114:9000/check?redirect_uri=http://192.168.1.114:8080"
+      "http://localhost:9000/check?redirect_uri=http://localhost:8080"
     );
   }
   res.sendFile(path.join(__dirname, "index.html"));

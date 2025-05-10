@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-</head>
-<body>
+  </head>
+  <body>
     <button onclick="login()">Login</button>
     <script>
-        function login() {
-            // alert("Login successful!");
-            fetch("http://192.168.1.114:9000/login?redirect_uri=http://192.168.1.114:8080", {
-                method: "POST",
-            })
-            .then((res) => {
-                alert("Login successful!");
-                if (res.status === 200) {
-                    return res.json();
-                } else {
-                    throw new Error("Login failed");
-                }
-            })
-            .then((data) => {
-                const token = data.token;
-                // redirect ไปที่ /home พร้อมกับ token
-                window.location.href = `http://192.168.1.114:8080?token=${token}`;
-            })
-        }
+      function login() {
+        const redirectUri = new URLSearchParams(window.location.search).get(
+          "redirect_uri"
+        );
+        console.log("Redirect URI:", redirectUri);
+        // alert("Login successful!");
+        fetch("http://localhost:9000/login", {
+          method: "POST",
+        })
+          .then((res) => {
+            alert("Login successful!");
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              throw new Error("Login failed");
+            }
+          })
+          .then((data) => {
+            const token = data.token;
+            // redirect ไปที่ /home พร้อมกับ token
+            window.location.href = `${redirectUri}?token=${token}`;
+          });
+      }
     </script>
-</body>
+  </body>
 </html>

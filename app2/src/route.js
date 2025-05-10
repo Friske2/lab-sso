@@ -1,16 +1,20 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-    {
-        path: '/home',
-        name: 'Home',
-        component: () => import('./Home.vue') // Lazy loading
-    }
+  {
+    path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: () => import("./Home.vue"), // Lazy loading
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;
